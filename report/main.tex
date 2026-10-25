@@ -1,0 +1,17 @@
+% !TEX program = xelatex
+% Расчётно-графическая работа по дисциплине
+% «Управление распределёнными системами», вариант 16.
+% Сборка: latexmk main.tex (движок xelatex задан в .latexmkrc)
+\input{preamble}
+\begin{document}
+\input{title}
+\renewcommand{\contentsname}{СОДЕРЖАНИЕ}
+\tableofcontents
+\input{chapters/ch1}   % 1 Постановка задачи
+\input{chapters/ch2}   % 2 Математическая модель            (этап 1)
+% \input{chapters/ch3} % 3 Аналитическое решение
+% \input{chapters/ch4} % 4 Численное решение
+% \input{chapters/ch5} % 5 Анализ полученных решений
+% \input{conclusion}   % Выводы
+\input{refs}
+\end{document}

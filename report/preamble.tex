@@ -1,0 +1,147 @@
+% ============================================================
+% Преамбула (ГОСТ 7.32-2017, XeLaTeX)
+% Перенесена из курсовой работы по ТАУ; добавлен TikZ для схем
+% ============================================================
+\documentclass[a4paper,14pt]{extreport}
+
+% --- Шрифты и язык (XeLaTeX) --------------------------------
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+% Моноширинный шрифт с поддержкой кириллицы (для \texttt)
+\setmonofont{Courier New}
+\newfontfamily\cyrillicfonttt{Courier New}
+
+% --- Геометрия страницы -------------------------------------
+\usepackage[
+  left   = 30mm,
+  right  = 15mm,
+  top    = 20mm,
+  bottom = 20mm
+]{geometry}
+
+% --- Межстрочный интервал и абзацный отступ -----------------
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+
+% --- Математика ----------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+% Знаки нестрогих неравенств в принятом в русской литературе начертании
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+% Сквозная нумерация формул (как в образце оформления)
+\counterwithout{equation}{chapter}
+% ГОСТ 7.32-2017, п. 6.8.1: отбивка формулы одинакова после полной
+% и неполной строки
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength{\abovedisplayshortskip}{\abovedisplayskip}%
+  \setlength{\belowdisplayshortskip}{\belowdisplayskip}}
+\makeatother
+\normalsize
+
+% --- Рисунки и таблицы --------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{float}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+
+% --- Подписи (ГОСТ: «Рисунок N — ...», «Таблица N — ...») ---
+\usepackage{caption}
+\DeclareCaptionLabelFormat{gost}{#1~#2}
+\DeclareCaptionLabelSeparator{gost}{ --- }
+\captionsetup{
+  labelsep       = gost,
+  labelformat    = gost,
+  justification  = centering,
+  skip           = 6pt
+}
+\captionsetup[figure]{
+  name           = Рисунок,
+  position       = below,
+  justification  = centering
+}
+\captionsetup[table]{
+  name           = Таблица,
+  position       = above,
+  justification  = raggedright,
+  singlelinecheck= false
+}
+
+% Сквозная нумерация рисунков и таблиц (как в образце оформления)
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+% --- Стиль заголовков (titlesec, как в образце оформления) --
+\usepackage{titlesec}
+
+% Заголовок раздела: «N Название» — полужирный, кегль основного
+% текста, без слова «Глава», с абзацного отступа (ГОСТ 7.32-2017, п. 6.2.1)
+\titleformat{\chapter}[hang]
+  {\normalfont\bfseries}{\thechapter}{1ex}{}
+\titlespacing*{\chapter}{\parindent}{0pt}{14pt}
+
+% Структурные заголовки (\chapter*: содержание, выводы,
+% список литературы) — по центру, полужирные
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\bfseries\filcenter}{}{0pt}{}
+\titlespacing*{name=\chapter,numberless}{0pt}{0pt}{14pt}
+
+% Подразделы — полужирные, «N.M Название» без точки после номера,
+% с абзацного отступа
+\titleformat{\section}[hang]
+  {\normalfont\bfseries}{\thesection}{1ex}{}
+\titlespacing*{\section}{\parindent}{14pt}{8pt}
+
+\titleformat{\subsection}[hang]
+  {\normalfont\bfseries}{\thesubsection}{1ex}{}
+\titlespacing*{\subsection}{\parindent}{12pt}{6pt}
+
+% Содержание (ГОСТ 7.32-2017, пп. 5.4.1, 6.13): отточие у каждой записи,
+% записи разделов без полужирного и без дополнительных отбивок
+\makeatletter
+\renewcommand*{\l@chapter}{\@dottedtocline{0}{0pt}{1.5em}}
+\makeatother
+
+% --- Прочие пакеты ------------------------------------------
+\usepackage{enumitem}
+% Перечисления: с абзацного отступа, без дополнительных отбивок
+% (ГОСТ 7.32-2017, п. 6.4.6)
+\setlist{nosep}
+\setlist[enumerate]{nosep, wide=\parindent, label=\arabic*)}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = black,
+  urlcolor   = black,
+  citecolor  = black
+}
+% Стабилизирует файл закладок (main.out) — без него сборке не
+% хватает проходов для схождения перекрёстных ссылок
+\usepackage{bookmark}
+
+% --- Схемы (TikZ) -------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, patterns}
+
+% --- Математические сокращения ------------------------------
+% Частные производные: \pd{T}{z}, \pdd{T}{z}
+\newcommand{\pd}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[2]{\dfrac{\partial^2 #1}{\partial #2^2}}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\Grad}{grad}
+
+% Запрет «висячих» строк
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% Допуск на растяжение пробелов: строки с формулами не выходят на поле
+\setlength{\emergencystretch}{2em}

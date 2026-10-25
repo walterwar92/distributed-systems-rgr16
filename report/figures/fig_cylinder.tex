@@ -1,0 +1,65 @@
+% Рисунок 1 — цилиндр и условия на его поверхности
+% Параметры эскиза: радиус эллипса rx, ry; высота H; уровень z = c
+\begin{tikzpicture}[>={Stealth[length=2.6mm]}, line cap=round, line join=round]
+  \def\rx{2.3}
+  \def\ry{0.62}
+  \def\H{5.2}
+  \def\C{2.1}
+
+  % --- боковая поверхность: верхняя часть (T = T_0) закрашена ---
+  \fill[gray!28]
+    (-\rx,\C) arc[start angle=180, end angle=360, x radius=\rx, y radius=\ry]
+    -- (\rx,\H) arc[start angle=0, end angle=-180, x radius=\rx, y radius=\ry]
+    -- cycle;
+
+  % --- верхний торец (теплоизолирован) ---
+  \fill[white] (0,\H) ellipse[x radius=\rx, y radius=\ry];
+  \fill[pattern=north east lines, pattern color=black!55]
+    (0,\H) ellipse[x radius=\rx, y radius=\ry];
+  \draw[thick] (0,\H) ellipse[x radius=\rx, y radius=\ry];
+
+  % --- образующие ---
+  \draw[thick] (-\rx,0) -- (-\rx,\H);
+  \draw[thick] ( \rx,0) -- ( \rx,\H);
+
+  % --- нижний торец ---
+  \draw[thick] (-\rx,0) arc[start angle=180, end angle=360, x radius=\rx, y radius=\ry];
+  \draw[dashed] (-\rx,0) arc[start angle=180, end angle=0, x radius=\rx, y radius=\ry];
+
+  % --- окружность z = c (линия скачка температуры) ---
+  \draw[semithick] (-\rx,\C) arc[start angle=180, end angle=360, x radius=\rx, y radius=\ry];
+  \draw[dashed] (-\rx,\C) arc[start angle=180, end angle=0, x radius=\rx, y radius=\ry];
+
+  % --- ось z ---
+  \draw[dash dot] (0,-1.1) -- (0,\H);
+  \draw[->] (0,\H) -- (0,\H+1.25) node[right] {$z$};
+  \fill (0,0) circle[radius=1.3pt] node[below left=-1pt] {$O$};
+
+  % --- ось r и радиус a ---
+  \draw[->] (0,0) -- (\rx+1.7,0) node[above] {$r$};
+  \fill (\rx,0) circle[radius=1.3pt];
+  \node[above right=-1pt] at (\rx,0) {$a$};
+
+  % --- размеры c и h слева ---
+  \draw[thin] (-\rx,0)  -- (-\rx-1.55,0);
+  \draw[thin] (-\rx,\C) -- (-\rx-0.85,\C);
+  \draw[thin] (-\rx,\H) -- (-\rx-1.55,\H);
+  \draw[<->, thin] (-\rx-0.65,0) -- (-\rx-0.65,\C) node[midway, left] {$c$};
+  \draw[<->, thin] (-\rx-1.35,0) -- (-\rx-1.35,\H) node[midway, left] {$h$};
+
+  % --- подписи условий ---
+  \node[anchor=west] at (\rx+0.55, 0.5*\C)       {$T=0$};
+  \node[anchor=west] at (\rx+0.55, 0.5*\C+0.5*\H) {$T=T_0$};
+  \draw[thin] (\rx+0.5, 0.5*\C) -- (\rx-0.55, 0.5*\C-0.25);
+  \draw[thin] (\rx+0.5, 0.5*\C+0.5*\H) -- (\rx-0.55, 0.5*\C+0.5*\H-0.25);
+  \fill (\rx-0.55, 0.5*\C-0.25) circle[radius=1pt];
+  \fill (\rx-0.55, 0.5*\C+0.5*\H-0.25) circle[radius=1pt];
+
+  \node[anchor=west] (top) at (\rx+0.55, \H+0.75) {$\pd{T}{z}=0$};
+  \draw[thin] (top.west) -- (0.95, \H+0.12);
+  \fill (0.95, \H+0.12) circle[radius=1pt];
+
+  \node[anchor=west] (bot) at (\rx+0.55, -1.15) {$\pd{T}{z}=0$};
+  \draw[thin] (bot.west) -- (0.95, -0.25);
+  \fill (0.95, -0.25) circle[radius=1pt];
+\end{tikzpicture}

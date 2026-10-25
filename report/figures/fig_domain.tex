@@ -1,0 +1,49 @@
+% Рисунок 2 — расчётная область (меридиональное сечение цилиндра)
+\begin{tikzpicture}[>={Stealth[length=2.6mm]}, line cap=round, line join=round]
+  \def\A{5.6}
+  \def\H{6.2}
+  \def\C{2.5}
+
+  % --- теплоизоляция торцов (штриховка снаружи области) ---
+  \fill[pattern=north east lines, pattern color=black!55] (0,-0.28) rectangle (\A,0);
+  \fill[pattern=north east lines, pattern color=black!55] (0,\H) rectangle (\A,\H+0.28);
+
+  % --- область ---
+  \fill[gray!10] (0,0) rectangle (\A,\H);
+  \draw[very thick] (0,0) -- (\A,0);
+  \draw[very thick] (0,\H) -- (\A,\H);
+  \draw[very thick] (\A,0) -- (\A,\C);
+  \draw[line width=2.2pt, gray!70!black] (\A,\C) -- (\A,\H);
+  \draw[dash dot, thick] (0,0) -- (0,\H);
+
+  % --- оси ---
+  \draw[->] (0,\H) -- (0,\H+1.35) node[left] {$z$};
+  \draw[->] (\A,0) -- (\A+1.9,0) node[below] {$r$};
+  \draw[dash dot] (0,0) -- (0,-0.9);
+
+  % --- отметки ---
+  \node[below left=-1pt] at (0,0) {$O$};
+  \node[below=6pt] at (\A,0) {$a$};
+  \draw[thin] (-0.12,\C) -- (0.12,\C);
+  \node[left=3pt] at (0,\C) {$c$};
+  \node[left=3pt] at (0,\H) {$h$};
+  \draw[thin, dashed] (0,\C) -- (\A,\C);
+  \fill (\A,\C) circle[radius=2pt];
+
+  % --- уравнение внутри области ---
+  \node at (0.5*\A, 0.5*\C+0.5*\H+0.25)
+    {$\dfrac{1}{r}\,\pd{}{r}\!\Bigl(r\,\pd{T}{r}\Bigr)+\pdd{T}{z}=0$};
+  \node at (0.5*\A, 0.5*\C) {$\Pi$};
+
+  % --- граничные условия ---
+  \node[below] at (0.5*\A,-0.32) {$\pd{T}{z}=0$};
+  \node[above] at (0.5*\A,\H+0.3) {$\pd{T}{z}=0$};
+  \node[right=4pt] at (\A, 0.5*\C+0.2) {$T=0$};
+  \node[right=4pt] at (\A, 0.5*\C+0.5*\H) {$T=T_0$};
+  \node[left=4pt] at (0, 0.5*\C+0.5*\H+0.25) {$|T|<\infty$};
+
+  % --- внешние нормали к поверхности цилиндра ---
+  \draw[->, thick] (0.78*\A,\H) -- (0.78*\A,\H+0.95) node[right] {$\vec n$};
+  \draw[->, thick] (0.78*\A,0) -- (0.78*\A,-0.95) node[right] {$\vec n$};
+  \draw[->, thick] (\A,0.9*\H) -- (\A+0.95,0.9*\H) node[above] {$\vec n$};
+\end{tikzpicture}
