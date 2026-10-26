@@ -10,3 +10,6 @@
 
 # Third-party course materials (copyrighted: lectures, textbook)
 Материалы dl/**/*.pdf
+
+# Python
+__pycache__/
